@@ -16,12 +16,13 @@ def create_random_user_accounts(total):
 
 @shared_task
 def sleepy(duration):
-    sleep(duration)
     return f"function Completed"
 
-@shared_task  
-def send_email(subject,body,receiver):
-    sender='sample31730273'
+@shared_task
+def send_email():
     send_mail(
-        subject,body,sender,[receiver]
+        'Hello This is from Viral Patel',
+        "Hello Viral Patel , How are You..?",
+        'sample31730273',
+        ['viralpatel742001@gmail.com']
     )

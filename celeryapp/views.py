@@ -15,7 +15,7 @@ class SendEmail(View):
         subject = request.POST.get('subject')
         body = request.POST.get('body')
         receiver = request.POST.get('receiver')
-        send_email(subject,body,receiver)
+        print(request.POST)
         context = {
             'response':'your Mail is Sent'
         }

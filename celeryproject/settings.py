@@ -18,10 +18,10 @@ from celery import Celery
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE','celeryproject.settings')
-app=Celery('celeryapp')
-app.config_from_object('django.conf:settings',namespace='CELERY')
-app.autodiscover_tasks()
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE','celeryproject.settings')
+# app=Celery('celeryapp')
+# app.config_from_object('django.conf:settings',namespace='CELERY')
+# app.autodiscover_tasks()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'celeryapp.apps.CeleryappConfig'
+    'celeryapp.apps.CeleryappConfig',
+    'django_celery_beat',
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -161,3 +163,24 @@ EMAIL_HOST  = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS =True
 EMAIL_HOST_PASSWORD = "SAMPLE@1999"
+
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+}
+
+
+CRONJOBS = [
+    ('*/5 * * * *', 'celeryapp.cron.print_hello')
+]
